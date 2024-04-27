@@ -31,11 +31,12 @@ plt.show()
 # Explanation: 
 
 # directed graph
-# digra = nx.Graph()
-# digra.add_edge("a", "b")
-# digra.add_edge("b", "c")
-# digra.add_edge("b", "d")
-# digra.add_edge("c", "d")
+digra = nx.DiGraph()
+digra.add_edge("a", "b")
+digra.add_edge("b", "c")
+digra.add_edge("c", "a")
+nx.draw(digra, with_labels = True)
+plt.show()
 # Explanation:
 
 # simple graphs
@@ -116,7 +117,18 @@ print(result)
 #Explanation: 
 
 # travelling in graph
-#walk:
+print("\nTravelling in the main graph:")
+#walk: 
+
+for i in range(len(list(G.nodes()))):
+    for j in range(i + 1, len(list(G.nodes()))):
+        src = list(G.nodes())[i]
+        dest = list(G.nodes())[j]
+        if nx.has_path(G, src, dest):
+            print(f"There is a path from {src} to {dest}.")
+        else:
+            print(f"There is no path from {src} to {dest}.")
+
 
 #trail:
 #path:
@@ -125,7 +137,27 @@ print(result)
 #simple circuit: 
 
 # connectedness in graphs
+if nx.connected_components(G):
+    print("Graph is connected")
+else: 
+    print("Not connected")
+
+#Explanation: 
+
 # connected components
+nx.draw(biggra, with_labels = True)
+plt.show()
+nx.draw(subgra, with_labels = True)
+plt.show()
+
+connect1 = list(nx.connected_components(biggra))
+connect2 = list(nx.connected_components(subgra))
+
+if connect1 == connect2:
+    print("Graph 2 is a subgraph of Graph 1")
+else:
+    print("Grpahs are not connected")
+
 # eulers circuit
 if nx.is_eulerian(G):
     print("Eulerian circuit: ", list(nx.eulerian_circuit(G)))
