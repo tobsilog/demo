@@ -129,19 +129,39 @@ for i in range(len(list(G.nodes()))):
         else:
             print(f"There is no path from {src} to {dest}.")
 
+walk = nx.shortest_path(G, src, dest)
+#Explanation: 
 
 #trail:
+istrail = len(set(zip(walk, walk[1:]))) == len(walk) - 1
+print(f"Is the walk from {src} to {dest} a trail?", is_trail)
+#Explanation: 
+
 #path:
+is_path = len(set(walk)) == len(walk)
+print(f"Is the walk from {src} to {dest} a path?", is_path)
+#Explanation: 
+
 #closed walk: 
+is_closed_walk = walk[0] == walk[-1]
+print(f"Is the walk from {src} to {dest} a closed walk?", is_closed_walk)
+#Explanation: 
+
 #circuit:
+is_circuit = is_closed_walk and len(set(zip(walk, walk[1:]))) == len(walk) - 1
+print(f"Is the walk from {src} to {dest} a circuit?", is_circuit)
+#Explanation:
+ 
 #simple circuit: 
+is_simple_circuit = is_circuit and len(set(walk)) == len(walk) - 1
+print(f"Is the walk from {src} to {dest} a simple circuit?", is_simple_circuit)
+#Explanation:
 
 # connectedness in graphs
 if nx.connected_components(G):
     print("Graph is connected")
 else: 
     print("Not connected")
-
 #Explanation: 
 
 # connected components
@@ -157,6 +177,7 @@ if connect1 == connect2:
     print("Graph 2 is a subgraph of Graph 1")
 else:
     print("Grpahs are not connected")
+#Explanation: 
 
 # eulers circuit
 if nx.is_eulerian(G):
